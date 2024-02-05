@@ -13,7 +13,8 @@ public class ButtonManager : MonoBehaviour
 
     [Header("Timer")]
     [SerializeField] Image timerImage;
-    //Timer timer;
+    [SerializeField] bool isTimerOver = false;
+    Timer timer;
 
     [Header("Level")]
     [SerializeField] TextMeshProUGUI levelText;
@@ -21,7 +22,7 @@ public class ButtonManager : MonoBehaviour
 
     void Awake()
     {
-        //timer = FindObjectOfType<Timer>(); 
+        timer = FindObjectOfType<Timer>();
         //level = FindObjectOfType<LevelKeeper>();
         Debug.Log("Numero de Botones verdes: "+ numberGreenButtons);
         for (int i = 0; i < buttons.Length; i++)
@@ -33,7 +34,11 @@ public class ButtonManager : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-
+        if(!isTimerOver){       
+            timerImage.fillAmount= timer.fillFraction;
+        }else{
+            //
+        }
     }
 
     public void initializeButton(int number){
@@ -63,5 +68,9 @@ public class ButtonManager : MonoBehaviour
 
     private void changeButtonsColor(){
 
+    }
+
+    public void GameOver(){
+        isTimerOver= true;
     }
 }

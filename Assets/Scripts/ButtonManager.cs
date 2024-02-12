@@ -8,7 +8,7 @@ public class ButtonManager : MonoBehaviour
 {
     [Header("ButtonGroup")]
     [SerializeField] GameObject[] buttons;
-     int numberGreenButtons = 2;
+    int numberGreenButtons = 2;
      List<int> indexList = new List<int>();
 
     [Header("Timer")]
@@ -49,9 +49,8 @@ public class ButtonManager : MonoBehaviour
 
 
     public void OnButtonSelected(int index){
-        Debug.Log("Hola");
-        bool isGreen = true;//buttons[index].GetComponent<ButtonsProperty>().isGreen();
-        if(!isGreen){
+        bool isGreen = buttons[index].GetComponent<ButtonsProperty>().isGreen();
+        if(isGreen){
             Debug.Log("isGreen");
             //Reiniciar nivel
         }else

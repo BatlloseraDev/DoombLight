@@ -15,14 +15,4 @@ public class ButtonsProperty : MonoBehaviour
         return isCorrect;
     }
 
-        public void OnButtonSelected(){
-        if(!isCorrect){
-            Debug.Log("isGreen");
-            //Reiniciar nivel
-        }else
-        {
-            Debug.Log("False");
-        }
-     
-    }
 }

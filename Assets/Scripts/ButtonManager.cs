@@ -70,4 +70,9 @@ public class ButtonManager : MonoBehaviour
     private void changeButtonsColor(){
 
     }
+
+    public void GameOver()
+    {
+
+    }
 }

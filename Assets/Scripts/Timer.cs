@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Timer : MonoBehaviour
 {
     
-    [SerializeField] float timeToEnd = 10f;
+    [SerializeField] float timeToEnd = 30f;
 
     public bool loadNextPhase;
-    public float fillFraction;
+  
 
     public bool isPlaying;
     float timeValue;
+    [SerializeField] private TextMeshProUGUI textMeshPro;
 
 
     void Start(){
@@ -32,7 +34,8 @@ public class Timer : MonoBehaviour
         if(isPlaying){
             timeValue-= Time.deltaTime;
             if(timeValue > 0 ){
-                fillFraction = timeValue / timeToEnd;
+               
+                textMeshPro.text = "Timer: " + Mathf.Round(timeValue); 
             }else{
                 isPlaying = false;
                 EndGame();

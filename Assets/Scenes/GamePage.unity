@@ -5698,7 +5698,6 @@ MonoBehaviour:
   - {fileID: 1615684671}
   - {fileID: 1442762921}
   - {fileID: 2046943183}
-  timerImage: {fileID: 0}
   levelText: {fileID: 0}
 --- !u!1001 &1673100794
 PrefabInstance:

@@ -11,9 +11,9 @@ public class ButtonManager : MonoBehaviour
     int numberGreenButtons = 2;
      List<int> indexList = new List<int>();
 
-    [Header("Timer")]
+    /*[Header("Timer")]
     [SerializeField] Image timerImage;
-    //Timer timer;
+    //Timer timer;*/
 
     [Header("Level")]
     [SerializeField] TextMeshProUGUI levelText;
@@ -23,12 +23,8 @@ public class ButtonManager : MonoBehaviour
     {
         //timer = FindObjectOfType<Timer>(); 
         //level = FindObjectOfType<LevelKeeper>();
-        Debug.Log("Numero de Botones verdes: "+ numberGreenButtons);
-        for (int i = 0; i < buttons.Length; i++)
-        {
-            indexList.Add(i);
-        }        
-        initializeButton(numberGreenButtons);
+        Inicializate();
+      
     }
 
     // Update is called once per frame
@@ -60,6 +56,17 @@ public class ButtonManager : MonoBehaviour
      
     }
 
+
+
+    private void Inicializate ()
+    {
+        Debug.Log("Numero de Botones verdes: "+ numberGreenButtons);
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            indexList.Add(i);
+        }        
+        initializeButton(numberGreenButtons);
+    }
     private void changeButtonsColor(){
 
     }

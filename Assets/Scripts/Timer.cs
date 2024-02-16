@@ -6,13 +6,13 @@ using TMPro;
 public class Timer : MonoBehaviour
 {
     
-    [SerializeField] float timeToEnd = 30f;
+    [SerializeField]public  float timeToEnd = 30f;
 
     public bool loadNextPhase;
   
 
     public bool isPlaying;
-    float timeValue;
+    public float timeValue;
     [SerializeField] private TextMeshProUGUI textMeshPro;
 
 

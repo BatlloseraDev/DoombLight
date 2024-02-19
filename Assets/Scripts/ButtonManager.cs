@@ -10,7 +10,7 @@ public class ButtonManager : MonoBehaviour
     [SerializeField] GameObject[] buttons;
     int numberGreenButtons = 2;
     int buttonsCheck = 0;
-     List<int> indexList = new List<int>();
+    [SerializeField]List<int> indexList = new List<int>();
 
     [Header("Timer")]
     //[SerializeField] Image timerImage;
@@ -20,13 +20,26 @@ public class ButtonManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI levelText;
     int phase = 0;
     int level = 1;
+
+    [Header("Imagenes")]
+    [SerializeField] Sprite buttonUnpress;
+    [SerializeField] Sprite buttonPress;
+
+    [Header("Colores")]
+    private Color colorGreen= new Color (0.25f,1f,0.3317f);
+    private Color colorBase = Color.white; 
+
+    bool inicializarLista= false; 
+  
     //LevelKeeper level;
 
     void Awake()
     {
         timer = FindObjectOfType<Timer>(); 
         //level = FindObjectOfType<LevelKeeper>();
-        Inicializate();    
+        
+        Inicializate();  
+         
     }
 
     // Update is called once per frame
@@ -34,20 +47,17 @@ public class ButtonManager : MonoBehaviour
 
     }
 
-    //¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡Revisar porque me ha salido 2 veces el numero 4!!!!!!!!!!!!!!!!!!!!!!!!!
-    //----------------------------------------------------------------------------------------------------
     public void InitializeButton(int number){
         Debug.Log("Inicializo");
         for (int i = 0; i < number; i++)
         {
             int index = indexList[Random.Range(0, indexList.Count)];
-            Debug.Log("Index numero: "+ index);
+            Debug.Log("Index numero: "+ index + " en fase: " + phase + " y nivel :" + level);
             buttons[index].GetComponent<ButtonsProperty>().isCorrect = true;
+            buttons[index].GetComponent<Image>().color = colorGreen; 
             indexList.Remove(index);
         }
     }
-//-------------------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------------------
 
     public void OnButtonSelected(int index){
         bool isGreen = buttons[index].GetComponent<ButtonsProperty>().isGreen();
@@ -74,15 +84,36 @@ public class ButtonManager : MonoBehaviour
 
     private void Inicializate ()
     {
-        Debug.Log("Numero de Botones verdes: "+ numberGreenButtons);
-        for (int i = 0; i < buttons.Length; i++)
-        {
-            indexList.Add(i);
-        }        
+        Debug.Log("Numero de Botones verdes: " + numberGreenButtons);
+        LoadList();
         InitializeButton(numberGreenButtons);
     }
+
+    private void LoadList()
+    {
+        if(!inicializarLista)
+        {
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                indexList.Add(i);
+            }
+            inicializarLista = true;
+        }
+        else
+        {
+            indexList.Clear();
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                indexList.Add(i);
+            }
+
+        }
+        
+    }
+
     private void ChangeButtonsColor(GameObject button){
         button.GetComponent<Button>().interactable = false;
+        button.GetComponent<Image>().sprite = buttonPress; 
     }
 
     public void NextPhase()
@@ -93,6 +124,7 @@ public class ButtonManager : MonoBehaviour
         RefreshInteractable();
         if(phase == 5){
             NextLevel();
+            phase= 0; 
         }
         timer.timeValue = timer.timeToEnd;
         Inicializate();
@@ -107,8 +139,8 @@ public class ButtonManager : MonoBehaviour
         if(timer.timeToEnd > 5){
             timer.timeToEnd -= 5;
         }        
-        if(numberGreenButtons == 9){
-            numberGreenButtons=2;
+        if(level >= 9){
+            numberGreenButtons=Random.Range((int)0,(int)10); //yo creo que asi queda mas divertido
         }     
     }
 
@@ -117,12 +149,14 @@ public class ButtonManager : MonoBehaviour
         for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].GetComponent<Button>().interactable = true;
+            buttons[i].GetComponent<Image>().sprite = buttonUnpress; 
+            buttons[i].GetComponent<Image>().color = colorBase; 
         }
     }
 
 
     public void GameOver()
     {
-
+        //yo diria de poner un canvas con que has perdido, dos botones uno de resetear y otro al menu principal.
     }
 }

@@ -15,4 +15,6 @@ public class ButtonsProperty : MonoBehaviour
         return isCorrect;
     }
 
+    //meter aqui el tema de sonidos cada vez que es presionado uno
+
 }

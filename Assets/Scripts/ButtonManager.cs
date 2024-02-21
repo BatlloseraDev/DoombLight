@@ -14,7 +14,7 @@ public class ButtonManager : MonoBehaviour
 
     [Header("Timer")]
     //[SerializeField] Image timerImage;
-    Timer timer;
+    [SerializeField]Timer timer;
 
     [Header("Level")]
     [SerializeField] TextMeshProUGUI levelText;
@@ -30,12 +30,14 @@ public class ButtonManager : MonoBehaviour
     private Color colorBase = Color.white; 
 
     bool inicializarLista= false; 
+    SoundManager soundManager;
   
     //LevelKeeper level;
 
     void Awake()
     {
-        timer = FindObjectOfType<Timer>(); 
+        timer = FindObjectOfType<Timer>();
+        soundManager =  FindObjectOfType<SoundManager>();  
         //level = FindObjectOfType<LevelKeeper>();
         
         Inicializate();  
@@ -136,12 +138,31 @@ public class ButtonManager : MonoBehaviour
         Debug.Log("NextLevel");
         level++;
         numberGreenButtons++;
+        NextLevelSound();
         if(timer.timeToEnd > 5){
             timer.timeToEnd -= 5;
         }        
         if(level >= 9){
-            numberGreenButtons=Random.Range((int)0,(int)10); //yo creo que asi queda mas divertido
+            numberGreenButtons=Random.Range((int)1,(int)10); //yo creo que asi queda mas divertido
         }     
+    }
+
+    public void NextLevelSound() //terminar de programar 
+    {
+        int decenas;
+        int unidades;
+        if(level<16)
+        {
+            soundManager.AddSoundToList("LevelSound_"+level);
+        }
+        else if(level>=16)
+        {
+            unidades= level%10;
+            decenas= level-unidades;
+            Debug.Log($"Unidades {unidades} y decenas {decenas}");
+            soundManager.AddSoundToList("LevelSound_"+decenas);
+            soundManager.AddSoundToList("LevelSound_"+unidades); 
+        }
     }
 
     public void RefreshInteractable()

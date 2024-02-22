@@ -174,9 +174,11 @@ public class ButtonManager : MonoBehaviour
 
     public void NextLevelSound2()
     {
+
         List<int> numbersToSound = new List<int>();
         int loop = 1;
         int number=level;
+        soundManager.AddSoundToList("LevelSound");
         if(level<14)
         {
             soundManager.AddSoundToList("LevelSound_"+level);

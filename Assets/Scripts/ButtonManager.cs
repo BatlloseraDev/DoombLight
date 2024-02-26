@@ -20,6 +20,7 @@ public class ButtonManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI levelText;
     int phase = 0;
     [SerializeField]int level = 1;
+    [SerializeField] private TextMeshProUGUI textLevel;
 
     [Header("Pantallas")]
     [SerializeField] GameObject gameOverScreen;
@@ -144,6 +145,7 @@ public class ButtonManager : MonoBehaviour
     {
         Debug.Log("NextLevel");
         level++;
+        textLevel.text = "Level-" + level;
         numberGreenButtons++;
         NextLevelSound2();
         if(timer.timeToEnd > 5){

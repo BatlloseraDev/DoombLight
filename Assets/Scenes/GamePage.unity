@@ -998,7 +998,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 67.85
+  m_fontSize: 67.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2477,7 +2477,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 67.85
+  m_fontSize: 67.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5886,7 +5886,8 @@ MonoBehaviour:
   indexList: 
   timer: {fileID: 0}
   levelText: {fileID: 0}
-  level: 1257
+  level: 9
+  textLevel: {fileID: 605750626}
   gameOverScreen: {fileID: 0}
   gameScreen: {fileID: 1961709275}
   menuScreen: {fileID: 0}

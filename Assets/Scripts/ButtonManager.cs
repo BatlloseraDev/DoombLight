@@ -19,7 +19,7 @@ public class ButtonManager : MonoBehaviour
     [Header("Level")]
     [SerializeField] TextMeshProUGUI levelText;
     int phase = 0;
-    int level = 1;
+    [SerializeField]int level = 1;
 
     [Header("Pantallas")]
     [SerializeField] GameObject gameOverScreen;
@@ -145,7 +145,7 @@ public class ButtonManager : MonoBehaviour
         Debug.Log("NextLevel");
         level++;
         numberGreenButtons++;
-        NextLevelSound();
+        NextLevelSound2();
         if(timer.timeToEnd > 5){
             timer.timeToEnd -= 5;
         }        
@@ -174,32 +174,57 @@ public class ButtonManager : MonoBehaviour
 
     public void NextLevelSound2()
     {
+
         List<int> numbersToSound = new List<int>();
         int loop = 1;
-        int number;
-        if(level<16)
+        int number=level;
+        soundManager.AddSoundToList("LevelSound");
+        if(level<14)
         {
             soundManager.AddSoundToList("LevelSound_"+level);
         }
-        else if(level>=16)
+        else if(level>=14)
         {
             do{
                 if(loop != 2 ){
-                    numbersToSound.Add(level%10);
+                    Debug.Log(level%10);
+                    numbersToSound.Add(number%10);
                 }else{
-                    numbersToSound.Add(level%10 *10);
+                    numbersToSound.Add(number%10 *10);
                 }                
-                number= level/10;
+                number= number/10;
                 loop++;
-            }while(number >=0);
-            for (int i = (numbersToSound.Count-1) ; i <= 0; i--)
+            }while(number >0 && loop<100);
+            for (int i = (numbersToSound.Count-1) ; i >= 0; i--)
             {
-                switch (loop)
+                switch (i)
                 {
-                    case 0:numbersToSound.Add(level%10);break;
-                    case 1:numbersToSound.Add(level%10 *10);break;
-                    case 2: soundManager.AddSoundToList("LevelSound_"+numbersToSound[i]);
-                            soundManager.AddSoundToList("LevelSound_Hundred");
+                    case 0: 
+                            if(numbersToSound[i]!=0 && numbersToSound[i+1]!=10) soundManager.AddSoundToList("LevelSound_"+numbersToSound[i]);
+                            break;
+                    case 1:
+                            if(numbersToSound[i]!=0)
+                            {
+                                
+                                if(numbersToSound[i]!=10)
+                                {   
+                                    soundManager.AddSoundToList("LevelSound_"+numbersToSound[i]);
+                                }
+                                else 
+                                {
+                                    soundManager.AddSoundToList("LevelSound_"+numbersToSound[i-1]);                                    
+                                    soundManager.AddSoundToList("LevelSound_Teen");
+                                }
+                            }
+                            
+                            break;
+                    case 2: 
+                            if(numbersToSound[i]!=0)
+                            {
+                                soundManager.AddSoundToList("LevelSound_"+numbersToSound[i]);
+                                soundManager.AddSoundToList("LevelSound_Hundred");
+                            }
+                            
                             break;
                     case 3: soundManager.AddSoundToList("LevelSound_"+numbersToSound[i]);
                             soundManager.AddSoundToList("LevelSound_Thousand");

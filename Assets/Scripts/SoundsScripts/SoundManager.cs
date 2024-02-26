@@ -16,7 +16,8 @@ public class SoundManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>(); 
         soundLoader = GetComponent<SoundLoader>();
         AddSoundToList("Welcome");
-        AddSoundToList("Wabadan");
+        AddSoundToList("LevelSound");
+        AddSoundToList("LevelSound_1");
 
         
     }

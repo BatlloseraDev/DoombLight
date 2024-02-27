@@ -247,7 +247,7 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
-    public void Restart()
+    public void Restart()//hay que hacerque el texto se vuelva a poner a level 1 y que suene
     {
         numberGreenButtons = 2;
         buttonsCheck = 0;

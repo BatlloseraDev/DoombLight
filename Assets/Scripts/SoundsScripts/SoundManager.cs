@@ -10,6 +10,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField]private List<AudioClip> soundsToPlay = new List<AudioClip>(); 
     private AudioSource audioSource;
     private int currentIndex = 0;
+    public AudioClip buttonSound;
+    public AudioClip buttonPhaseSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -76,5 +78,14 @@ public class SoundManager : MonoBehaviour
    {
         audioSource.clip = soundsToPlay[currentIndex-1];
         audioSource.Play(); 
+   }
+
+   public void PlayButtonSound()
+   {
+        AudioSource.PlayClipAtPoint(buttonSound, transform.position); 
+   }
+   public void PlayButtonNextPhaseSound()
+   {
+         AudioSource.PlayClipAtPoint(buttonPhaseSound, transform.position); 
    }
 }

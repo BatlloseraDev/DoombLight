@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -21,11 +22,11 @@ public class ButtonManager : MonoBehaviour
     int phase = 0;
     [SerializeField]int level = 1;
     [SerializeField] private TextMeshProUGUI textLevel;
+    private int maxLevel = 0;
 
     [Header("Pantallas")]
     [SerializeField] GameObject gameOverScreen;
     [SerializeField] GameObject gameScreen;
-    [SerializeField] GameObject menuScreen;
 
     [Header("Imagenes")]
     [SerializeField] Sprite buttonUnpress;
@@ -43,11 +44,20 @@ public class ButtonManager : MonoBehaviour
     void Awake()
     {
         timer = FindObjectOfType<Timer>();
-        soundManager =  FindObjectOfType<SoundManager>();  
+        soundManager =  FindObjectOfType<SoundManager>();
         //level = FindObjectOfType<LevelKeeper>();
         //gameOverScreen = FindObjectOfType<GameOver>();
         Inicializate();  
          
+    }
+
+    void Start()
+    {
+        if(PlayerPrefs.HasKey("MaxLevel")){
+            maxLevel = PlayerPrefs.GetInt("MaxLevel");
+        }
+        soundManager.AddSoundToList("LevelSound");
+        soundManager.AddSoundToList("LevelSound_1");         
     }
 
     // Update is called once per frame
@@ -253,25 +263,34 @@ public class ButtonManager : MonoBehaviour
         buttonsCheck = 0;
         phase = 0;
         level = 1;
-
+        textLevel.text = "Level-" + level;
         timer.StartAgain();        
         RefreshInteractable();
         Inicializate();
-
+        NextLevelSound2();
         gameScreen.SetActive(true);
         gameOverScreen.SetActive(false);
     }
 
     public void MainMenu()
     {
-        menuScreen.SetActive(true);
-        gameScreen.SetActive(false);
-        gameOverScreen.SetActive(false);
+        SceneManager.LoadScene(0);
+        Destroy(gameObject);
+    }
+
+    public void MaxLevel()
+    {
+        if(level> maxLevel){
+            maxLevel = level;
+            PlayerPrefs.SetInt("MaxLevel",maxLevel);
+            PlayerPrefs.Save();
+        }
     }
 
 
     public void GameOver()
     {
+        MaxLevel();
         //yo diria de poner un canvas con que has perdido, dos botones uno de resetear y otro al menu principal.
         gameScreen.SetActive(false);
         gameOverScreen.SetActive(true);

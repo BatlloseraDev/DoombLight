@@ -14,12 +14,8 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>(); 
-        soundLoader = GetComponent<SoundLoader>();
-        AddSoundToList("Welcome");
-        AddSoundToList("LevelSound");
-        AddSoundToList("LevelSound_1");
-
-        
+        soundLoader = GetComponent<SoundLoader>(); 
+        //AddSoundToList("Welcome");       
     }
 
 

@@ -6,9 +6,14 @@ using TMPro;
 
 public class MenuManager : MonoBehaviour
 {     
+    [Header("Menu")]
     SoundManager soundManager;
     [SerializeField] private TextMeshProUGUI textMaxLevel;
     [SerializeField] private GameObject secretButton;
+
+    [Header("Pantallas")]
+    [SerializeField] GameObject menuScreen;
+    [SerializeField] GameObject volumeScreen;
 
     void Awake()
     {  
@@ -32,6 +37,8 @@ public class MenuManager : MonoBehaviour
             SceneManager.LoadScene(1);
             Destroy(gameObject);
         }else{
+            menuScreen.SetActive(false);
+            volumeScreen.SetActive(true);
             Debug.Log("Opciones");
         }     
     }

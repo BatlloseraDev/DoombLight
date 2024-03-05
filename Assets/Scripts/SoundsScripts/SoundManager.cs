@@ -8,15 +8,28 @@ public class SoundManager : MonoBehaviour
     private SoundLoader soundLoader;
 
     [SerializeField]private List<AudioClip> soundsToPlay = new List<AudioClip>(); 
+    [SerializeField] private AudioSource musicSource;
     private AudioSource audioSource;
+    private AudioSource audioSourceSFX;
     private int currentIndex = 0;
     public AudioClip buttonSound;
     public AudioClip buttonPhaseSound;
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>(); 
+        audioSource = GetComponent<AudioSource>();
+        if(musicSource != null){
+            musicSource.volume = PlayerPrefs.GetFloat("MusicVolume");
+        }
+        audioSourceSFX = gameObject.AddComponent<AudioSource>();
+         
         soundLoader = GetComponent<SoundLoader>();
+        if(PlayerPrefs.HasKey("MusicVolume")){
+           SetVolumeMusic(PlayerPrefs.GetFloat("MusicVolume"));
+        }
+        if(PlayerPrefs.HasKey("SFXVolume")){
+            SetVolumeSFX(PlayerPrefs.GetFloat("SFXVolume"));
+        }
         /*AddSoundToList("Welcome");
         AddSoundToList("LevelSound");
         AddSoundToList("LevelSound_1");*/
@@ -82,10 +95,24 @@ public class SoundManager : MonoBehaviour
 
    public void PlayButtonSound()
    {
-        AudioSource.PlayClipAtPoint(buttonSound, transform.position); 
+        AudioSource.PlayClipAtPoint(buttonSound, transform.position, audioSourceSFX.volume); 
    }
+
    public void PlayButtonNextPhaseSound()
    {
-         AudioSource.PlayClipAtPoint(buttonPhaseSound, transform.position); 
+         AudioSource.PlayClipAtPoint(buttonPhaseSound, transform.position,audioSourceSFX.volume); 
+   }
+
+   public void SetVolumeMusic(float volume)
+   {
+         audioSource.volume = volume;
+         //musicSource.volume = volume;
+         Debug.Log("El volumen es: "+ audioSource.volume);
+   }
+
+   public void SetVolumeSFX(float volume)
+   {
+         audioSourceSFX.volume = volume;
+         Debug.Log("El volumen es: "+ audioSourceSFX.volume);
    }
 }

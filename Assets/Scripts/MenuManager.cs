@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
+
 using UnityEngine;
 using TMPro;
 
@@ -31,7 +31,7 @@ public class MenuManager : MonoBehaviour
             }
         } 
     }  
-
+    /*
     public void OnButtonSelected(string nameButton){
         if(nameButton.Equals("Start")){
             SceneManager.LoadScene(1);
@@ -41,5 +41,7 @@ public class MenuManager : MonoBehaviour
             volumeScreen.SetActive(true);
             Debug.Log("Opciones");
         }     
-    }
+    }*/
+
+  
 }

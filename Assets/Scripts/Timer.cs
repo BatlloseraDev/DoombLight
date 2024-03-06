@@ -9,6 +9,7 @@ public class Timer : MonoBehaviour
     [SerializeField]public  float timeToEnd = 30f;
 
     public bool loadNextPhase;
+    private bool Paused = false; 
   
 
     public bool isPlaying;
@@ -30,7 +31,7 @@ public class Timer : MonoBehaviour
     }
 
     void UpdateTimer(){
-        if(isPlaying){
+        if(isPlaying && !Paused){
             timeValue-= Time.deltaTime;
             if(timeValue > 0 ){
                
@@ -59,6 +60,11 @@ public class Timer : MonoBehaviour
         timeToEnd = 30f;   
         timeValue = timeToEnd;
         isPlaying = true;
+    }
+
+    public void SetPause(bool paused)
+    {
+        Paused= paused; 
     }
 
 }

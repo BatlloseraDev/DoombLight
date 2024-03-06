@@ -18,8 +18,12 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        if(musicSource != null){
+        if(musicSource != null)
+        {
             musicSource.volume = PlayerPrefs.GetFloat("MusicVolume");
+        }else
+        {
+            musicSource= GameObject.FindGameObjectWithTag("Song").GetComponent<AudioSource>();
         }
         audioSourceSFX = gameObject.AddComponent<AudioSource>();
          
@@ -105,14 +109,33 @@ public class SoundManager : MonoBehaviour
 
    public void SetVolumeMusic(float volume)
    {
-         audioSource.volume = volume;
+         if(musicSource==null){
+             musicSource= GameObject.FindGameObjectWithTag("Song").GetComponent<AudioSource>();
+         }
+         musicSource.volume = volume;
+         
          //musicSource.volume = volume;
-         Debug.Log("El volumen es: "+ audioSource.volume);
+        
    }
 
    public void SetVolumeSFX(float volume)
+   {    audioSource.volume = volume;
+        audioSourceSFX.volume = volume;
+        Debug.Log("El volumen es: "+ audioSourceSFX.volume);
+   }
+
+   public void RefreshVolumeMusic()
    {
-         audioSourceSFX.volume = volume;
-         Debug.Log("El volumen es: "+ audioSourceSFX.volume);
+        if(PlayerPrefs.HasKey("MusicVolume"))
+        {
+            SetVolumeMusic(PlayerPrefs.GetFloat("MusicVolume"));
+        }
+   }
+
+   public void RefreshVolumeSFX()
+   {
+        if(PlayerPrefs.HasKey("SFXVolume")){
+            SetVolumeSFX(PlayerPrefs.GetFloat("SFXVolume"));
+        }
    }
 }

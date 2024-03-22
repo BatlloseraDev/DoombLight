@@ -279,7 +279,8 @@ public class ButtonManager : MonoBehaviour
     }
 
     public void MaxLevel()
-    {
+    {   
+        maxLevel = PlayerPrefs.GetInt("MaxLevel");
         if(level> maxLevel){
             maxLevel = level;
             PlayerPrefs.SetInt("MaxLevel",maxLevel);

@@ -9,5 +9,5 @@ It's a infinity game so you can improve your reflexes and concetration
 
 <h2>Images</h2>
 
-![main](images/DoombLight_2)
-![game](images/DoombLight_1)
+![main](images/DoombLight_2.jpg)
+![game](images/DoombLight_1.jpg)
